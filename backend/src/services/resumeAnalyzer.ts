@@ -17,18 +17,14 @@ export async function analyzeResume(resumeBuffer: Buffer): Promise<{
 
     // Use OpenAI to analyze the resume
     const completion = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-4.1",
       messages: [
         {
           role: "system",
           content: `You are a job recruiter. 
-          
           You are given a resume and you need to reccomend 10 jobs that the candidate is a good fit for.
-          
           Format the response as a JSON object with arrays for jobTitles, skills, and experience.
-          
           The job titles should be the titles of the jobs that the candidate has held.
-          
           The skills should be the skills that the candidate has listed on their resume.
           `
         },
