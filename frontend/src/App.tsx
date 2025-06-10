@@ -1,7 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 interface Job {
@@ -45,16 +42,30 @@ function App() {
       const formData = new FormData()
       formData.append('resume', file)
 
-      const analysisResponse = await axios.post('http://localhost:3001/api/analyze-resume', formData)
-      setAnalysis(analysisResponse.data)
-
-      // Search for jobs based on the analyzed job titles
-      const jobsResponse = await axios.get('http://localhost:3001/api/search-jobs', {
-        params: {
-          jobTitles: analysisResponse.data.jobTitles.join(',')
-        }
+      // Analyze resume using fetch
+      const analysisResponse = await fetch('http://localhost:3001/api/analyze-resume', {
+        method: 'POST',
+        body: formData,
       })
-      setJobs(jobsResponse.data)
+
+      if (!analysisResponse.ok) {
+        throw new Error('Failed to analyze resume')
+      }
+
+      const analysisData = await analysisResponse.json()
+      setAnalysis(analysisData)
+
+      // Search for jobs using fetch
+      const jobsResponse = await fetch(
+        `http://localhost:3001/api/search-jobs?jobTitles=${encodeURIComponent(analysisData.jobTitles.join(','))}`
+      )
+
+      if (!jobsResponse.ok) {
+        throw new Error('Failed to fetch jobs')
+      }
+
+      const jobsData = await jobsResponse.json()
+      setJobs(jobsData)
     } catch (err) {
       setError('Failed to process resume. Please try again.')
       console.error(err)
