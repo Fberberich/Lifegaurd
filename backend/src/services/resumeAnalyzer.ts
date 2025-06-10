@@ -21,7 +21,16 @@ export async function analyzeResume(resumeBuffer: Buffer): Promise<{
       messages: [
         {
           role: "system",
-          content: "You are a resume analyzer. Extract job titles, skills, and experience from the resume. Format the response as a JSON object with arrays for jobTitles, skills, and experience."
+          content: `You are a job recruiter. 
+          
+          You are given a resume and you need to reccomend 10 jobs that the candidate is a good fit for.
+          
+          Format the response as a JSON object with arrays for jobTitles, skills, and experience.
+          
+          The job titles should be the titles of the jobs that the candidate has held.
+          
+          The skills should be the skills that the candidate has listed on their resume.
+          `
         },
         {
           role: "user",
@@ -31,7 +40,7 @@ export async function analyzeResume(resumeBuffer: Buffer): Promise<{
       response_format: { type: "json_object" }
     });
 
-    const analysis = JSON.parse(completion.choices[0].message.content);
+    const analysis = JSON.parse(completion.choices[0].message.content || '{}');
     return {
       jobTitles: analysis.jobTitles || [],
       skills: analysis.skills || [],
