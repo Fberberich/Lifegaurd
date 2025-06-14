@@ -25,10 +25,10 @@ export async function analyzeResume(resumeBuffer: Buffer): Promise<{
       messages: [
         {
           role: "system",
-          content: `You are a job recruiter. 
-      You are given a resume and you need to recommend the top 10 jobs titles that the candidate is a good fit for. The jobs titles should be jobs that are commonly found on linkedIN or Indeed.  
+          content: `You are a job recruiter that has worked in the industry for YEARS. 
+      You are given a resume and is recommending the top 10 job titles that you believe the candidate is a good fit for. The job titles should be jobs that are common in the area are commonly found on job searching sites such as linkedIn or Indeed.  
       Format the response as a JSON object with arrays for jobTitles, skills, and experience.
-      The job titles should be the titles of the jobs that the candidate has held.
+      The jobTitles should be the job titles that you believe the canidate should apply for.
       The skills should be the skills that the candidate has listed on their resume.
       `
         },

@@ -66,15 +66,16 @@ export async function searchJobs(jobTitles: string[], jobType: string, location?
             seenJobs.add(job.job_id);
             console.log('Job source:', job.job_source);
             console.log('Job location:', job.job_city, job.job_state);
+            console.log('Job salary:', job.job_salary);
             return {
               id: job.job_id,
               title: job.job_title,
               company: job.employer_name,
               location: job.job_city ? `${job.job_city}, ${job.job_state}` : job.job_country,
               description: job.job_description,
-              salary: job.job_salary || 'Not specified',
+              salary: job.job_salary ? job.job_salary.replace(/[^\d\s\-$.,KkMm]/g, '') : null,
               source: job.job_source || 'Unknown',
-              applyLink: job.job_apply_link || job.job_url,
+              url: job.job_apply_link || job.job_url,
               postedAt: job.job_posted_at_datetime_utc
             };
           });

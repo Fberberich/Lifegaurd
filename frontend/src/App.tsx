@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
 
 interface Job {
   id: string;
@@ -144,7 +146,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans antialiased">
+    <div className="min-h-screen bg-gray-100 font-sans antialiased flex flex-col">
       <nav className="bg-blue-600 py-4 shadow-md">
         <div className="w-full flex justify-between items-center px-4 sm:px-6 lg:px-8">
           <div className="text-2xl font-bold text-white">Lifeguard</div>
@@ -165,11 +167,11 @@ export default function App() {
         </div>
       </nav>
 
-      <div className="w-full py-8">
+      <div className="w-full py-8 flex-grow">
         {currentPage === 'upload' ? (
           <div className="bg-white rounded-lg shadow-lg mt-10 max-w-7xl mx-auto p-20 sm:px- lg:px-8">
             <div className="text-center mb-8">
-              <h2 className="text-4xl font-extrabold text-gray-800 mb-2">Search Tech Jobs</h2>
+              <h2 className="text-4xl font-extrabold text-gray-800 mb-2">Lifeguard Resume Searcher</h2>
             </div>
             <div className="space-y-6">
                 <div className="relative">
@@ -217,7 +219,7 @@ export default function App() {
                 </div>
 
                 <div>
-                    <label htmlFor="resume-upload" className="block text-gray-700 text-base font-semibold mb-2">Upload Resume (optional)</label>
+                    <label htmlFor="resume-upload" className="block text-gray-700 text-base font-semibold mb-2">Upload Resume</label>
                     <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50 cursor-pointer">
                         <label htmlFor="resume-upload" className="flex-grow text-gray-500 py-3 px-4 truncate cursor-pointer">
                             {file ? file.name : 'No file chosen'}
@@ -321,13 +323,15 @@ export default function App() {
 
                     <div className="flex justify-between items-center mt-4">
                       <div className="text-gray-600">
-                        {job.salary && (
+                        {job.salary ? (
                           <span className="font-semibold text-green-600">
                             <svg className="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             {job.salary}
                           </span>
+                        ) : (
+                          <span className="text-gray-500 italic">Salary not specified</span>
                         )}
                       </div>
                       <button
@@ -346,6 +350,17 @@ export default function App() {
           </div>
         )}
       </div>
+
+      <footer className="bg-blue-600 py-6 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white text-center">
+          <p className="text-lg mb-2">Connect with me: 
+            <a href="mailto:Fredberbs3@gmail.com" className="text-white hover:text-blue-100 transition-colors mx-2">Email</a>
+            <a href="https://github.com/Fberberich" className="text-white hover:text-blue-100 transition-colors mx-2"><FontAwesomeIcon icon={faGithub} className="text-white hover:text-blue-100 transition-colors w-8 h-8 align-middle mr-2" /></a>
+            <a href="https://www.linkedin.com/in/frederick-berberich/" className="text-white hover:text-blue-100 transition-colors mx-2"><FontAwesomeIcon icon={faLinkedin} className="text-white hover:text-blue-100 transition-colors w-8 h-8 align-middle" /></a>
+          </p>
+          <p className="text-sm">&copy; 2025 Fred Berberich | Lifegaurd Web Application</p>
+        </div>
+      </footer>
     </div>
   )
 }
