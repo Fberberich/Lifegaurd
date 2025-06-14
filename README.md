@@ -57,7 +57,7 @@ This will start both the frontend (on port 5173) and backend (on port 3001) serv
   - React
   - TypeScript
   - Tailwind CSS
-  - Axios
+  - Fetch API
 
 - Backend:
   - Node.js
